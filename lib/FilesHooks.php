@@ -570,6 +570,8 @@ class FilesHooks {
 		try {
 			$node = $this->rootFolder->getUserFolder($uidOwner)->get($path);
 		} catch (NotFoundException $e) {
+			$this->logger->warning('Path "{path}" with owner "{uidOwner}" was not found',
+				['path'=> $path, 'uidOwner'=>$uidOwner]);
 			return [
 				'users' => [],
 				'remotes' => [],
@@ -577,6 +579,8 @@ class FilesHooks {
 		}
 
 		if (!$node instanceof Node) {
+			$this->logger->warning('Path "{path}" of "{uidOwner}" is not a valid type.',
+				['path'=> $path, 'uidOwner'=>$uidOwner]);
 			return [
 				'users' => [],
 				'remotes' => [],
